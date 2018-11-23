@@ -17,7 +17,12 @@ def home():
             {"endpoint": "/article",
              "method": "get",
              "query_params": ["url", "author", "title", "short_title", "content", "summary", "category", "limit"],
-             "query type":"case insensitive regex matching query"
+             "query type":"case insensitive regex matching query",
+             "example":[
+                 "www.host.com/article",
+                 "www.host.com/article?limit=2",
+                 "www.host.com/article?author=facebook&category=india"
+             ]
              }
         ]
     }

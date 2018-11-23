@@ -20,9 +20,10 @@ def get_data(args):
             else:
                 query = dict()
                 for k, v in _args.items():
-                    query[k] = re.compile(".*"+v+".*", re.IGNORECASE)
+                    if k != 'limit':
+                        query[k] = re.compile(".*"+v+".*", re.IGNORECASE)
                 if 'limit' in _args.keys():
-                    return dumps(collection.find(query).limit(_args.get('limit',1)))
+                    return dumps(collection.find(query).limit(int(_args.get('limit',1))))
                 else:
                     return dumps(collection.find(query))
     except Exception as e:

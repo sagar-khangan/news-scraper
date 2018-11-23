@@ -18,3 +18,4 @@ class CrawlerItem(scrapy.Item):
     summary = scrapy.Field()
     content = scrapy.Field()
     author = scrapy.Field()
+    domain = scrapy.Field()

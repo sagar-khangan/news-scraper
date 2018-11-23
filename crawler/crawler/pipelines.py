@@ -2,7 +2,7 @@ from crawler import settings
 from readability.readability import Document
 import pymongo
 from scrapy.log import logger
-
+import tldextract
 
 class CrawlerPipeline(object):
 
@@ -16,6 +16,7 @@ class CrawlerPipeline(object):
         item['category'] = response.xpath(settings.CATEGORY_PATTERN).extract_first()
         item['content'] = Document(html).content()
         item['author'] = response.xpath(settings.AUTHOR_PATTERN).extract_first()
+        item['domain'] = '.'.join(tldextract.extract(response.url)[-2:])
         del item['raw']
         return item
 

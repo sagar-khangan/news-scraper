@@ -94,4 +94,4 @@ CATEGORY_PATTERN = '//meta[@property="article:section"]/@content'
 
 
 # Api Settings
-ALLOWED_ARGS = ['url','short_title','title','category','summary','author','content','limit']
+ALLOWED_ARGS = ['url','short_title','title','category','summary','author','content','limit','domain']
