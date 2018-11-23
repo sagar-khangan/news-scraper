@@ -2,7 +2,8 @@ import scrapy
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from crawler.items import CrawlerItem
-
+from crawler import settings
+import re
 
 class NewsSpider(scrapy.spiders.Spider):
     name = "news"
@@ -27,27 +28,32 @@ class NewsSpider(scrapy.spiders.Spider):
             f.write(response.body)
         self.log('Saved file %s' % filename)
 
+
 class NewsCrawlSpider(CrawlSpider):
     name = "newscrawl"
     start_urls = []
 
     rules = (
-        Rule(LinkExtractor(allow=('sport',)), callback='parse_item'),
+
+        # Rules to crawl only specific paths
         Rule(LinkExtractor(allow=('news',)), callback='parse_item'),
+        Rule(LinkExtractor(allow=('weather',)), callback='parse_item'),
+        Rule(LinkExtractor(allow=('travel',)), callback='parse_item'),
+        Rule(LinkExtractor(allow=('science',)), callback='parse_item'),
+        Rule(LinkExtractor(allow=('fashion',)), callback='parse_item'),
+
+        # Rule to crawl all links
+        # Rule(LinkExtractor(allow=(r".*",)), callback='parse_item'),
     )
 
     def __init__(self,*args,**kwargs):
+
         super(NewsCrawlSpider, self).__init__(*args, **kwargs)
         self.start_urls = [kwargs.get('domain')]
-
 
     def parse_item(self, response):
         self.logger.info('Hi, this is an item page! %s', response.url)
         item = CrawlerItem()
         item['url'] = response.url
-        item['title'] = response.xpath("//*/head/title/text()").extract_first()
-        item['category'] = response.xpath('//meta[@property="article:section"]/@content').extract_first()
-        item['content'] = response.xpath('//p/text()').extract()
-        item['author'] = response.xpath('//*[starts-with(text(), "By")]/text()').extract_first()
-
+        item['raw'] = response
         return item
