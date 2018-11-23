@@ -54,6 +54,7 @@ ROBOTSTXT_OBEY = True
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'crawler.pipelines.CrawlerPipeline': 300,
+    'crawler.pipelines.MongoPipeline': 400,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -77,7 +78,16 @@ ITEM_PIPELINES = {
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
+# Mongo Details
+MONGO_USER = "login_user"
+MONGO_PASSWORD = "assignment1!"
+MONGO_PORT = 31299
+MONGO_URI = "mongodb://{}:{}@portal-ssl487-34.sagar-news-deployment.2596947705.composedb.com:{}".format(
+    MONGO_USER, MONGO_PASSWORD,MONGO_PORT)
+MONGO_DATABASE = "admin"
+MONGO_COLLECTION = "news_items"
+
+# Extraction Patterns
 AUTHOR_PATTERN = '//*[starts-with(text(), "By")]/text() | //meta[@name="author"]/@content |' \
                  ' //meta[@property="article:author"]/@content'
 CATEGORY_PATTERN = '//meta[@property="article:section"]/@content'
-

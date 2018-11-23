@@ -2,8 +2,7 @@ import scrapy
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from crawler.items import CrawlerItem
-from crawler import settings
-import re
+
 
 class NewsSpider(scrapy.spiders.Spider):
     name = "news"
@@ -52,7 +51,7 @@ class NewsCrawlSpider(CrawlSpider):
         self.start_urls = [kwargs.get('domain')]
 
     def parse_item(self, response):
-        self.logger.info('Hi, this is an item page! %s', response.url)
+        self.logger.info('Response for page %s', response.url)
         item = CrawlerItem()
         item['url'] = response.url
         item['raw'] = response
