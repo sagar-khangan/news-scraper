@@ -1,16 +1,16 @@
 from flask import Flask, request, jsonify,redirect,url_for
 import json
-from crawler.handler import get_data
+from crawler.crawler.handler import get_data
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 
-@app.errorhandler(404)
+@application.errorhandler(404)
 def page_not_found(e):
     return redirect(url_for('home'))
 
 
-@app.route('/')
+@application.route('/')
 def home():
     resp = {
         "allowed apis": [
@@ -29,7 +29,7 @@ def home():
     return jsonify(resp)
 
 
-@app.route('/article')
+@application.route('/article')
 def get_article():
     resp = get_data(request.args)
     resp = json.loads(resp)
@@ -38,5 +38,6 @@ def get_article():
     return jsonify(resp)
 
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    application.run(host='0.0.0.0')
