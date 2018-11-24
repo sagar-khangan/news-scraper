@@ -29,6 +29,10 @@ class NewsSpider(scrapy.spiders.Spider):
 
 
 class NewsCrawlSpider(CrawlSpider):
+    """
+    Spider to crawl websites
+
+    """
     name = "newscrawl"
     start_urls = []
 

@@ -6,6 +6,12 @@ import tldextract
 
 class CrawlerPipeline(object):
 
+    """
+    Pipeline to extract content from crawled data
+
+
+    """
+
     def process_item(self, item, spider):
         logger.info("Extracting content for %s" %item['url'])
         response = item['raw']
@@ -21,9 +27,11 @@ class CrawlerPipeline(object):
         return item
 
 
-
 class MongoPipeline(object):
+    """
+    Pipeline to send crawled item to Mongo
 
+    """
     collection_name = settings.MONGO_COLLECTION
 
     def __init__(self, mongo_uri, mongo_db):
