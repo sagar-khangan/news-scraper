@@ -32,7 +32,7 @@ def get_data(args):
                 for k, v in _args.items():
                     if k != 'limit':
                         query[k] = re.compile(".*"+v+".*", re.IGNORECASE)
-                logging.info("Request for data with query %s..." % json.dumps(query))
+                logging.info("Request for data with query %s..." % query)
                 if 'limit' in _args.keys():
                     return dumps(collection.find(query).limit(int(_args.get('limit',1))))
                 else:
