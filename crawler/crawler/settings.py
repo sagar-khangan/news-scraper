@@ -1,3 +1,4 @@
+import os
 BOT_NAME = 'crawler'
 
 SPIDER_MODULES = ['crawler.spiders']
@@ -79,8 +80,8 @@ ITEM_PIPELINES = {
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # Mongo Details
-MONGO_USER = "login_user"
-MONGO_PASSWORD = "assignment1!"
+MONGO_USER = os.environ.get("MONGO_USER","login_user")
+MONGO_PASSWORD = os.environ.get("MONGO_PASS","assignment1!") 
 MONGO_PORT = 31299
 MONGO_URI = "mongodb://{}:{}@portal-ssl487-34.sagar-news-deployment.2596947705.composedb.com:{}".format(
     MONGO_USER, MONGO_PASSWORD,MONGO_PORT)
